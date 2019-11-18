@@ -52,7 +52,8 @@ class Room extends Component {
   };
 
   render() {
-    const list = this.state.rooms.map((room, index) => {
+    console.log("this.props.rooms", this.props.rooms);
+    const list = this.props.rooms.map((room, index) => {
       return <p key={index}>{room.name}</p>;
     });
     return (
@@ -79,4 +80,8 @@ class Room extends Component {
   }
 }
 
-export default connect(null, { addroom, loadRooms })(Room);
+const mapStateToProps = state => {
+  return { rooms: state.room };
+};
+
+export default connect(mapStateToProps, { addroom, loadRooms })(Room);
