@@ -53,6 +53,9 @@ class Room extends Component {
 
   render() {
     console.log("this.props.rooms", this.props.rooms);
+    if(!this.props.rooms){
+      return <p>Loading...</p>
+    }
     const list = this.props.rooms.map((room, index) => {
       return <p key={index}>{room.name}</p>;
     });
