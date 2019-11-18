@@ -1,9 +1,11 @@
 import React, { Component } from "react";
-import superagent from "superagent";
+//import superagent from "superagent";
+import { connect } from "react-redux";
+import { addroom } from "../action/room";
 //import { Link } from 'react-router-dom'
 //import { url } from '../constant'
 
-export default class Room extends Component {
+class Room extends Component {
   state = {
     rooms: [],
     value: ""
@@ -40,13 +42,7 @@ export default class Room extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    const { value } = this.state;
-    const postUrl = "http://localhost:4000/room";
-
-    superagent
-      .post(postUrl)
-      .send({ name: value })
-      .then(response => {});
+    this.props.addroom({ name: this.state.value });
   };
 
   reset = () => {
@@ -80,3 +76,5 @@ export default class Room extends Component {
     );
   }
 }
+
+export default connect(null, { addroom })(Room);
