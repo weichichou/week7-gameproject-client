@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 //import superagent from "superagent";
 import { connect } from "react-redux";
-import { addroom } from "../action/room";
+import { addroom, loadRooms } from "../action/room";
 //import { Link } from 'react-router-dom'
 //import { url } from '../constant'
 
@@ -17,6 +17,8 @@ class Room extends Component {
   );
 
   componentDidMount = () => {
+    this.props.loadRooms();
+
     this.stream.onmessage = event => {
       const { data } = event;
       const parsed = JSON.parse(data);
@@ -77,4 +79,4 @@ class Room extends Component {
   }
 }
 
-export default connect(null, { addroom })(Room);
+export default connect(null, { addroom, loadRooms })(Room);
