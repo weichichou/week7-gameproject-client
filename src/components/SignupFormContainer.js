@@ -28,9 +28,6 @@ class SignupFormContainer extends React.Component {
     render(){
         return(
             <form onSubmit={this.handleSubmit}>
-                <label>Username: 
-                    <input onChange={this.handleChange} type='text' name='username' value={this.state.username} required/>
-                </label>
                 <label>Email: 
                     <input onChange={this.handleChange} type='text' name='email' value={this.state.email} required/>
                 </label>
