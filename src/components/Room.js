@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { addroom, loadRooms } from "../action/room";
 import { Link } from 'react-router-dom'
-//import { url } from '../constant'
+import { url } from '../constant'
 
 class Room extends Component {
   state = {
@@ -12,8 +12,8 @@ class Room extends Component {
   };
 
   stream = new EventSource(
-    //`${url}/stream`
-    "http://localhost:4000/stream"
+    `${url}/stream`
+    //"http://localhost:4000/stream"
   );
 
   componentDidMount = () => {

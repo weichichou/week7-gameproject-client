@@ -1,6 +1,7 @@
 import React from 'react'
 import superagent from 'superagent'
 import {connect} from 'react-redux'
+import {url} from '../constant'
 
 class DetailPage extends React.Component{
 
@@ -8,7 +9,7 @@ class DetailPage extends React.Component{
         console.log('Got Clicked?')
         console.log('this.props.user.id', this.props.user.id)
         superagent
-            .put(`http://localhost:4000/join/${this.props.match.params.id}`)
+            .put(`${url}/join/${this.props.match.params.id}`)
             .send({userId: this.props.user.id})
             .then(res => console.log(res.body))
     }

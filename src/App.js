@@ -7,8 +7,24 @@ import LoginForm from "./components/LoginForm";
 import Room from "./components/Room";
 import { Route } from 'react-router-dom';
 import DetailPage from './components/DetailPage'
+import {connect} from 'react-redux'
+
+
+// global EventSource
 
 class App extends React.Component {
+ /*  stream = new EventSource('http://localhost:4000/stream')
+  
+  componentDidMount(){
+    this.stream.onmessage=(event)=>{
+      const {data} = event
+
+      const parsed = JSON.parse(data)
+
+      console.log('parsed test', parsed)
+    }
+  } */
+
   render() {
     return (
       <Provider store={store}>
@@ -25,3 +41,4 @@ class App extends React.Component {
 }
 
 export default App;
+//export default connect()(App);

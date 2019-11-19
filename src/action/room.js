@@ -1,4 +1,5 @@
 import superagent from "superagent";
+import {url} from '../constant' 
 export const ADDEDROOM = "ADDEDROOM";
 
 function addedroom(room) {
@@ -10,7 +11,7 @@ function addedroom(room) {
 
 export const addroom = data => dispatch => {
   superagent
-    .post("http://localhost:4000/room")
+    .post(`${url}/room`)
     .send(data)
     .then(res => {
       const action = addedroom(res.body);
@@ -32,7 +33,7 @@ export const loadRooms = () => (dispatch, getState) => {
   if (getState().rooms) return;
 
   // a GET /rooms request
-  superagent("http://localhost:4000/")
+  superagent(url)
     .then(response => {
       // dispatch an ROOMS_FETCHED action that contains the events
       dispatch(roomsFetched(response.body));
