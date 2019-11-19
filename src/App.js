@@ -13,7 +13,7 @@ import {connect} from 'react-redux'
 // global EventSource
 
 class App extends React.Component {
- /*  stream = new EventSource('http://localhost:4000/stream')
+  stream = new EventSource('http://localhost:4000/stream')
   
   componentDidMount(){
     this.stream.onmessage=(event)=>{
@@ -21,9 +21,11 @@ class App extends React.Component {
 
       const parsed = JSON.parse(data)
 
+      this.props.dispatch(parsed)
+
       console.log('parsed test', parsed)
     }
-  } */
+  } 
 
   render() {
     return (
@@ -40,5 +42,5 @@ class App extends React.Component {
   }
 }
 
-export default App;
-//export default connect()(App);
+//export default App;
+export default connect()(App);
