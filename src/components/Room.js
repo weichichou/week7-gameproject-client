@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 //import superagent from "superagent";
 import { connect } from "react-redux";
-import { addroom, loadRooms } from "../action/room";
+import { addroom } from "../action/room";
 import { Link } from 'react-router-dom'
-import { url } from '../constant'
+// import { url } from '../constant'
 
 class Room extends Component {
   state = {
@@ -11,31 +11,31 @@ class Room extends Component {
     value: ""
   };
 
-  stream = new EventSource(
+  /* stream = new EventSource(
     `${url}/stream`
     //"http://localhost:4000/stream"
-  );
+  ); */
 
-  componentDidMount = () => {
-    this.props.loadRooms();
+  // componentDidMount = () => {
+  //   this.props.loadRooms();
 
-    this.stream.onmessage = event => {
-      const { data } = event;
-      const parsed = JSON.parse(data);
-      if (Array.isArray(parsed)) {
-        this.setState({
-          rooms: parsed
-        });
-        console.log("this.state.room", this.state.rooms);
-      } else {
-        const rooms = [...this.state.rooms, parsed];
-        this.setState({
-          rooms: rooms
-        });
-        console.log("this.state.rooms", this.state.rooms);
-      }
-    };
-  };
+  //   this.stream.onmessage = event => {
+  //     const { data } = event;
+  //     const parsed = JSON.parse(data);
+  //     if (Array.isArray(parsed)) {
+  //       this.setState({
+  //         rooms: parsed
+  //       });
+  //       console.log("this.state.room", this.state.rooms);
+  //     } else {
+  //       const rooms = [...this.state.rooms, parsed];
+  //       this.setState({
+  //         rooms: rooms
+  //       });
+  //       console.log("this.state.rooms", this.state.rooms);
+  //     }
+  //   };
+  // };
 
   handleChange = event => {
     const { value } = event.target;
@@ -52,7 +52,24 @@ class Room extends Component {
   };
 
   render() {
-    console.log("this.props.rooms", this.props.rooms);
+
+    const {rooms} = this.props
+
+    if(!rooms){
+      return null
+    }
+
+    const list = rooms.map(room =>
+      <p key={room.name}>
+        <Link
+          to={`/rooms/${room.name}`}
+        >
+          {room.name}
+        </Link>
+      </p>
+    )
+
+    /* console.log("this.props.rooms", this.props.rooms);
     if(!this.props.rooms){
       return <p>Loading...</p>
     }
@@ -62,7 +79,7 @@ class Room extends Component {
         <p>{room.name}</p>
       </Link>
       </div>
-    });
+    }); */
     return (
       <div>
         <h1>Room List</h1>
@@ -81,7 +98,7 @@ class Room extends Component {
             <button>Add room</button>
           </form>
         </div>
-        {list}
+        {list} 
       </div>
     );
   }
@@ -91,4 +108,4 @@ const mapStateToProps = state => {
   return { rooms: state.room };
 };
 
-export default connect(mapStateToProps, { addroom, loadRooms })(Room);
+export default connect(mapStateToProps, { addroom })(Room);
