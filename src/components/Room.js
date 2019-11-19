@@ -2,7 +2,7 @@ import React, { Component } from "react";
 //import superagent from "superagent";
 import { connect } from "react-redux";
 import { addroom, loadRooms } from "../action/room";
-//import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 //import { url } from '../constant'
 
 class Room extends Component {
@@ -56,8 +56,12 @@ class Room extends Component {
     if(!this.props.rooms){
       return <p>Loading...</p>
     }
-    const list = this.props.rooms.map((room, index) => {
-      return <p key={index}>{room.name}</p>;
+    const list = this.props.rooms.map((room) => {
+      return <div key={room.id}>
+      <Link to={`/rooms/${room.id}`}>
+        <p>{room.name}</p>
+      </Link>
+      </div>
     });
     return (
       <div>
