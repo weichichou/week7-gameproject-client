@@ -37,15 +37,34 @@ class DetailPage extends React.Component{
     }
 
     render(){
+
+        // from demo
+        const {name} = this.props.match.params
+        const {rooms} = this.props
+        console.log("this.props",this.props)
+        if(!this.props.rooms){
+            return 'Loading...'
+        }
+        const room = rooms.find(room => room.name === name)
+        if(!room){
+            return 'This room does not exist'
+        }
+        const {users} = room;
+        const list = users && users.length ?
+        users.map(user => <p key={user.id}>{user.email}</p>) : <p>This room has no users</p>
+        console.log('room test', room)
         console.log("is this showing?")
-        return(
+        return(<div>
+            <h1>This is {name}</h1>
+            <p>Users are {list}</p>
             <button onClick={this.handleClick}>Join</button>
+        </div> 
         )
     }
 }
 
 const mapStateToProps = state => {
-    return { user: state.user };
+    return { user: state.user, rooms:state.room };
   };
   
   export default connect(mapStateToProps)(DetailPage);
