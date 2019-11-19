@@ -62,7 +62,7 @@ class Room extends Component {
     const list = rooms.map(room =>
       <p key={room.name}>
         <Link
-          to={`/room/${room.name}`}
+          to={`/rooms/${room.name}`}
         >
           {room.name}
         </Link>

@@ -35,7 +35,7 @@ class App extends React.Component {
           <SignupForm />
           <LoginForm />
           <Route path ='/' exact component={Room} />
-          <Route path='/rooms/:id' component={DetailPage} />
+          <Route path='/rooms/:name' component={DetailPage} />
         </div>
       </Provider>
     );
