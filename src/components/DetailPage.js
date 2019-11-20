@@ -6,26 +6,10 @@ import Card from "../components/Card";
 import { Link } from "react-router-dom";
 
 class DetailPage extends React.Component {
-  /* handleClick = () => {
-        console.log('Got Clicked?')
-        console.log('this.props.user.id', this.props.user.id)
-        superagent
-            .put(`${url}/join/${this.props.match.params.id}`)
-            .send({userId: this.props.user.id})
-            .then(res => console.log(res.body))
-    } */
-
   handleClick = async () => {
     const { user, match } = this.props;
-    // const jwt = this.props.jwt
-    // const match = this.props
     const { name } = match.params;
     const { jwt } = user;
-
-    // const {
-    //     user: { jwt },
-    //     match: { params: { name } }
-    // } = this.props
 
     const response = await superagent.put(`${url}/join/${name}`).set({
       authorization: `Bearer ${jwt}`
