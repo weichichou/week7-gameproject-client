@@ -2,6 +2,7 @@ import React from 'react'
 import superagent from 'superagent'
 import {connect} from 'react-redux'
 import {url} from '../constant'
+import Card from '../components/Card'
 
 class DetailPage extends React.Component{
 
@@ -58,6 +59,7 @@ class DetailPage extends React.Component{
             <h1>This is {name}</h1>
             <p>Users are {list}</p>
             <button onClick={this.handleClick}>Join</button>
+            <Card />
         </div> 
         )
     }
