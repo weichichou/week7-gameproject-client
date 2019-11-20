@@ -8,12 +8,13 @@ import Room from "./components/Room";
 import { Route } from 'react-router-dom';
 import DetailPage from './components/DetailPage'
 import {connect} from 'react-redux'
+import {url} from './constant'
 
 
 // global EventSource
 
 class App extends React.Component {
-  stream = new EventSource('http://localhost:4000/stream')
+  stream = new EventSource(`${url}/stream`)
   
   componentDidMount(){
     this.stream.onmessage=(event)=>{
