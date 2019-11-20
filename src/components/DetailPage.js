@@ -2,6 +2,7 @@ import React from 'react'
 import superagent from 'superagent'
 import {connect} from 'react-redux'
 import {url} from '../constant'
+import Card from '../components/Card'
 
 class DetailPage extends React.Component{
 
@@ -48,16 +49,17 @@ class DetailPage extends React.Component{
         const room = rooms.find(room => room.name === name)
         if(!room){
             return 'This room does not exist'
-        }
+        }   
         const {users} = room;
         const list = users && users.length ?
-        users.map(user => <p key={user.id}>{user.email}</p>) : <p>This room has no users</p>
-        console.log('room test', room)
+        users.map(user => <p key={user.id}>{user.email}. Current score:{user.point}</p>) : <p>This room has no users</p>
+        console.log('room test', list)
         console.log("is this showing?")
         return(<div>
             <h1>This is {name}</h1>
             <p>Users are {list}</p>
             <button onClick={this.handleClick}>Join</button>
+            <Card />
         </div> 
         )
     }
