@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
-// import superagent from 'superagent'
-// import {url} from '../constant' 
+import superagent from 'superagent'
+import {url} from '../constant' 
 import './CardCss.css'
 
 class Card extends React.Component {
@@ -30,10 +30,17 @@ class Card extends React.Component {
 
     }
 
-    checkIfMatch = () => {
+    checkIfMatch = async() => {
         console.log('local state', this.state)
         if (this.state.chosen[0] === this.state.chosen[1]){
             console.log('Congrats! you get one point')
+            const {user} = this.props
+            const {jwt} = user
+            await superagent
+            .put(`${url}/card`)
+            .set({
+                authorization: `Bearer ${jwt}`
+            })
         }else{
             console.log('Sorry, you did not get any point')
         }  
