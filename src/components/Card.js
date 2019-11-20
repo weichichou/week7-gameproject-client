@@ -2,6 +2,8 @@ import React from 'react'
 import {connect} from 'react-redux'
 import superagent from 'superagent'
 import {url} from '../constant' 
+import './CardCss.css'
+
 
 
 class Card extends React.Component {
@@ -34,7 +36,7 @@ class Card extends React.Component {
     render(){
         return(
             <div>
-                <img onClick={this.handleClick} width='150px' src='https://www.osp.osaka-info.jp/upload/facility_shop/149/20180324_111149_481228.jpg'/>
+                <img className='card' onClick={this.handleClick} width='150px' src='https://www.osp.osaka-info.jp/upload/facility_shop/149/20180324_111149_481228.jpg'/>
             </div> 
         )
     }
