@@ -49,7 +49,7 @@ class DetailPage extends React.Component{
         const room = rooms.find(room => room.name === name)
         if(!room){
             return 'This room does not exist'
-        }
+        }   
         const {users} = room;
         const list = users && users.length ?
         users.map(user => <p key={user.id}>{user.email}. Current score:{user.point}</p>) : <p>This room has no users</p>
