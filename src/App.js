@@ -4,29 +4,32 @@ import { Provider } from "react-redux";
 import "./App.css";
 import SignupForm from "./components/SignupForm";
 import LoginForm from "./components/LoginForm";
-import Room from "./components/Room";
-import { Route } from 'react-router-dom';
-import DetailPage from './components/DetailPage'
-import {connect} from 'react-redux'
-import {url} from './constant'
+
+import RoomListContainer from "./components/RoomListContainer";
+import { Route } from "react-router-dom";
+import DetailPage from "./components/DetailPage";
+import { connect } from "react-redux";
+import { url } from "./constant";
 
 
 // global EventSource
 
 class App extends React.Component {
-  stream = new EventSource(`${url}/stream`)
-  
-  componentDidMount(){
-    this.stream.onmessage=(event)=>{
-      const {data} = event
 
-      const parsed = JSON.parse(data)
+  stream = new EventSource(`${url}/stream`);
 
-      this.props.dispatch(parsed)
+  componentDidMount() {
+    this.stream.onmessage = event => {
+      const { data } = event;
 
-      console.log('parsed test', parsed)
-    }
-  } 
+
+      const parsed = JSON.parse(data);
+
+      this.props.dispatch(parsed);
+
+      console.log("parsed test", parsed);
+    };
+  }
 
   render() {
     return (
@@ -35,8 +38,8 @@ class App extends React.Component {
           <h1>Game project</h1>
           <SignupForm />
           <LoginForm />
-          <Route path ='/' exact component={Room} />
-          <Route path='/rooms/:name' component={DetailPage} />
+          <Route path="/" exact component={RoomListContainer} />
+          <Route path="/rooms/:name" component={DetailPage} />
         </div>
       </Provider>
     );

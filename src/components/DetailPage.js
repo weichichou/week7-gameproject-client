@@ -3,10 +3,10 @@ import superagent from 'superagent'
 import {connect} from 'react-redux'
 import {url} from '../constant'
 import Card from '../components/Card'
+import { Link } from "react-router-dom";
 
-class DetailPage extends React.Component{
-
-    /* handleClick = () => {
+class DetailPage extends React.Component {
+  /* handleClick = () => {
         console.log('Got Clicked?')
         console.log('this.props.user.id', this.props.user.id)
         superagent
@@ -15,37 +15,34 @@ class DetailPage extends React.Component{
             .then(res => console.log(res.body))
     } */
 
-    handleClick = async() => {
-        const {user, match} = this.props
-        // const jwt = this.props.jwt
-        // const match = this.props
-        const {name} = match.params
-        const {jwt} = user
+  handleClick = async () => {
+    const { user, match } = this.props;
+    // const jwt = this.props.jwt
+    // const match = this.props
+    const { name } = match.params;
+    const { jwt } = user;
 
-        // const {
-        //     user: { jwt },
-        //     match: { params: { name } }
-        // } = this.props
-        
+    // const {
+    //     user: { jwt },
+    //     match: { params: { name } }
+    // } = this.props
 
-        const response = await superagent
-            .put(`${url}/join/${name}`)
-            .set({
-                authorization: `Bearer ${jwt}`
-            })
-        
-        console.log('response test:', response)
-    }
+    const response = await superagent.put(`${url}/join/${name}`).set({
+      authorization: `Bearer ${jwt}`
+    });
 
-    render(){
+    console.log("response test:", response);
+  };
 
-        // from demo
-        const {name} = this.props.match.params
-        const {rooms} = this.props
-        console.log("this.props",this.props)
-        if(!this.props.rooms){
-            return 'Loading...'
-        }
+
+  render() {
+    // from demo
+    const { name } = this.props.match.params;
+    const { rooms } = this.props;
+    console.log("this.props", this.props);
+    if (!this.props.rooms) {
+      return "Loading...";
+
         const room = rooms.find(room => room.name === name)
         if(!room){
             return 'This room does not exist'
@@ -56,17 +53,18 @@ class DetailPage extends React.Component{
         console.log('room test', list)
         console.log("is this showing?")
         return(<div>
+            <Link to={"/"}> Go back to homepage</Link>
             <h1>This is {name}</h1>
             <p>Users are {list}</p>
             <button onClick={this.handleClick}>Join</button>
             <Card />
         </div> 
         )
-    }
+  }
 }
 
 const mapStateToProps = state => {
-    return { user: state.user, rooms:state.room };
-  };
-  
-  export default connect(mapStateToProps)(DetailPage);
+  return { user: state.user, rooms: state.room };
+};
+
+export default connect(mapStateToProps)(DetailPage);
