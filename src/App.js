@@ -4,20 +4,24 @@ import { Provider } from "react-redux";
 import "./App.css";
 import SignupForm from "./components/SignupForm";
 import LoginForm from "./components/LoginForm";
+
 import RoomListContainer from "./components/RoomListContainer";
 import { Route } from "react-router-dom";
 import DetailPage from "./components/DetailPage";
 import { connect } from "react-redux";
 import { url } from "./constant";
 
+
 // global EventSource
 
 class App extends React.Component {
+
   stream = new EventSource(`${url}/stream`);
 
   componentDidMount() {
     this.stream.onmessage = event => {
       const { data } = event;
+
 
       const parsed = JSON.parse(data);
 
