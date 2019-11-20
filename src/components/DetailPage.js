@@ -52,8 +52,8 @@ class DetailPage extends React.Component{
         }
         const {users} = room;
         const list = users && users.length ?
-        users.map(user => <p key={user.id}>{user.email}</p>) : <p>This room has no users</p>
-        console.log('room test', room)
+        users.map(user => <p key={user.id}>{user.email}. Current score:{user.point}</p>) : <p>This room has no users</p>
+        console.log('room test', list)
         console.log("is this showing?")
         return(<div>
             <h1>This is {name}</h1>

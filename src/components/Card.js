@@ -7,9 +7,6 @@ import './CardCss.css'
 
 
 class Card extends React.Component {
-    state = {
-        point:''
-    }
     
     handleClick = async() => {
         const {user} = this.props
@@ -43,7 +40,7 @@ class Card extends React.Component {
 }
 
 const mapStateToProps = state => {
-    return { user: state.user };
+    return { user: state.user, room: state.room };
   };
 
 export default connect(mapStateToProps)(Card)

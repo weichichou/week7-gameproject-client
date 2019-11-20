@@ -6,8 +6,8 @@ export default (state=null, action={}) =>{
             return action.payload
         case LOGGEDIN:
             return action.payload
-        case 'CLICKCARD':
-            return action.payload
+        //case 'CLICKCARD':
+          //  return action.payload
         default:
             return state
     }
