@@ -4,36 +4,57 @@ import superagent from 'superagent'
 import {url} from '../constant' 
 import './CardCss.css'
 
-
-
 class Card extends React.Component {
+    state = {
+        chosen: [],
+        message: ''
+    }
+
     
-    handleClick = async() => {
-        const {user} = this.props
-        // const jwt = this.props.jwt
-        // const match = this.props
-        //const {name} = match.params
-        const {jwt} = user
+    handleClick = (event) => {
+        const chosenPic = event.target.alt.toString()
 
-        // const {
-        //     user: { jwt },
-        //     match: { params: { name } }
-        // } = this.props
+        const newChosen = [...this.state.chosen, chosenPic]
         
+        this.setState({ chosen: newChosen })
 
-        const response = await superagent
+        if(newChosen[1] && newChosen[1]===newChosen[0]){
+            this.isMatch()
+        }else if(newChosen[1] && newChosen[1]!==newChosen[0]){
+            this.setState({message:'Sorry, you did not get any point', chosen:[]})   
+        }
+    }
+
+
+
+    isMatch = async() => {
+        this.setState({message: 'Congrats! you get one point'})
+            const {user} = this.props
+            const {jwt} = user
+            await superagent
             .put(`${url}/card`)
             .set({
                 authorization: `Bearer ${jwt}`
             })
-        
-        console.log('response test:', response)
+        this.setState({
+            chosen: []
+        })
     }
 
     render(){
         return(
             <div>
-                <img className='card' onClick={this.handleClick} width='150px' src='https://www.osp.osaka-info.jp/upload/facility_shop/149/20180324_111149_481228.jpg'/>
+                <h3>{this.state.message}</h3>
+                
+                <img height='200px' alt='cat' onClick={this.handleClick}
+                src='https://timesofindia.indiatimes.com/thumb/msid-67586673,width-800,height-600,resizemode-4/67586673.jpg'/>
+                
+                <img height='200px' alt='cat' onClick={this.handleClick}
+                src='https://timesofindia.indiatimes.com/thumb/msid-67586673,width-800,height-600,resizemode-4/67586673.jpg'/>
+
+                <img height='200px' alt='dog' onClick={this.handleClick}
+                src='https://images4.persgroep.net/rcs/pBmmY0KtuDM_n4ub9qlMUFplAEs/diocontent/150718141/_fitwidth/694/?appId=21791a8992982cd8da851550a453bd7f&quality=0.9'/>
+                
             </div> 
         )
     }
