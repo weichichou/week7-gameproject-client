@@ -64,7 +64,7 @@ class DetailPage extends React.Component {
             <button onClick={this.handleClick}>Join</button>
           </div>
         )}
-        {this.state.joined && <Card />}
+        {this.state.joined && <Card roomId={room.id} />}
         
       </div>
     );
