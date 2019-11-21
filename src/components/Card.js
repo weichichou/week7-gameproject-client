@@ -15,9 +15,6 @@ class Card extends React.Component {
   handleClick = event => {
     if (this.state.flipped) {
       event.currentTarget.style.transform = "rotateY(180deg)";
-      // console.log("currentTarget:", event.currentTarget);
-      // console.log("target:", event.target);
-
       const newStyle = [...this.state.chosenStyle, event.currentTarget];
       this.setState({ chosenStyle: newStyle });
 
@@ -27,6 +24,7 @@ class Card extends React.Component {
 
       if (newAlt[1] && newAlt[1] === newAlt[0]) {
         this.isMatch();
+         this.removeCard(event)
       } else if (newAlt[1] && newAlt[1] !== newAlt[0]) {
         function turnBack() {
           newStyle.forEach(card => (card.style.transform = "rotateY(0deg)"));
@@ -35,16 +33,25 @@ class Card extends React.Component {
         this.setState({
           message: "Sorry, you did not get any point",
           chosenAlt: []
-        });
+        })
       }
     }
   };
+               
+
+    removeCard = async(event) => {
+      console.log('EVENT target in remove card', event.target.alt)
+      await superagent
+        .put(`${url}/remove`)
+        .send({alt: event.target.alt})
+    }
+
 
   isMatch = async () => {
     this.setState({ message: "Congrats! you get one point" });
     const { user } = this.props;
     const { jwt } = user;
-    await superagent.put(`${url}/card`).set({
+    await superagent.put(`${url}/getonepoint`).set({
       authorization: `Bearer ${jwt}`
     });
     this.setState({
@@ -52,12 +59,13 @@ class Card extends React.Component {
     });
   };
 
+
   render() {
     return (
       <div className="game-container">
         <h3>{this.state.message}</h3>
         <div className="memory-game">
-          <div
+          <div id='1'
             className="memory-card"
             data-framework="green-card"
             onClick={this.handleClick}
@@ -73,7 +81,7 @@ class Card extends React.Component {
               src="https://www.akinfurniture.com/wp-content/uploads/2017/10/62658_Ink-2.jpg"
             />
           </div>
-          <div
+          <div id='2'
             className="memory-card"
             data-framework="green-card"
             onClick={this.handleClick}
@@ -89,7 +97,7 @@ class Card extends React.Component {
               src="https://www.akinfurniture.com/wp-content/uploads/2017/10/62658_Ink-2.jpg"
             />
           </div>
-          <div
+          <div id='3'
             className="memory-card"
             data-framework="yellow-card"
             onClick={this.handleClick}
@@ -105,7 +113,7 @@ class Card extends React.Component {
               src="https://www.akinfurniture.com/wp-content/uploads/2017/10/62658_Ink-2.jpg"
             />
           </div>
-          <div
+          <div id='4'
             className="memory-card"
             data-framework="yellow-card"
             onClick={this.handleClick}
@@ -121,7 +129,7 @@ class Card extends React.Component {
               src="https://www.akinfurniture.com/wp-content/uploads/2017/10/62658_Ink-2.jpg"
             />
           </div>
-          <div
+          <div id='5'
             className="memory-card"
             data-framework="yellow-card"
             onClick={this.handleClick}
@@ -137,7 +145,7 @@ class Card extends React.Component {
               src="https://www.akinfurniture.com/wp-content/uploads/2017/10/62658_Ink-2.jpg"
             />
           </div>
-          <div
+          <div id='6'
             className="memory-card"
             data-framework="yellow-card"
             onClick={this.handleClick}

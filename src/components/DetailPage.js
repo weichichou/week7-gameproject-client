@@ -11,19 +11,26 @@ class DetailPage extends React.Component {
   };
 
   handleClick = async () => {
-    const { user, match } = this.props;
+    const { rooms, user, match } = this.props;
     const { name } = match.params;
     const { jwt } = user;
 
     const response = await superagent.put(`${url}/join/${name}`).set({
       authorization: `Bearer ${jwt}`
     });
+
     this.setState({ joined: true });
-    console.log("response test:", response);
+
+    const room = rooms.find(room => room.name === name)
+
+    const updatecard = await superagent
+    .put(`${url}/getroomid`)
+    .send({roomId: room.id})
+
   };
 
   render() {
-    // from demo
+    
     const { name } = this.props.match.params;
     const { rooms } = this.props;
     console.log("this.props", this.props);
@@ -45,8 +52,7 @@ class DetailPage extends React.Component {
       ) : (
         <p>This room has no users</p>
       );
-    //const joined = true;
-    //const joined = users.some(user => user.email ===)
+    
     return (
       <div>
         <Link to={"/"}> Go back to homepage</Link>
@@ -58,7 +64,7 @@ class DetailPage extends React.Component {
           </div>
         )}
         {this.state.joined && <Card />}
-        {/* <button onClick={this.handleClick}>Join</button> */}
+        
       </div>
     );
   }
