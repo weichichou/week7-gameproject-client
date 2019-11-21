@@ -23,9 +23,10 @@ class DetailPage extends React.Component {
 
     const room = rooms.find(room => room.name === name)
 
-    const updatecard = await superagent
+/*     const updatecard = await superagent
     .put(`${url}/getroomid`)
-    .send({roomId: room.id})
+    .send({roomId: room.id}) */
+
 
   };
 
