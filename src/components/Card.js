@@ -11,12 +11,6 @@ class Card extends React.Component {
     chosen: [],
     message: '',
   };
- 
-  /* componentDidMount(){
-    superagent
-      .put(`${url}/getroomid`)
-      .send({roomId: this.props.room.id})
-  } */
 
     handleClick = (event) => {
         var element = event.currentTarget;
@@ -32,17 +26,18 @@ class Card extends React.Component {
 
         if(newChosen[1] && newChosen[1]===newChosen[0]){
             this.isMatch()
-            this.removeCard()
+            this.removeCard(event)
         }else if(newChosen[1] && newChosen[1]!==newChosen[0]){
             this.setState({message:'Sorry, you did not get any point', chosen:[]})   
         }
         }
     }
 
-    removeCard = async() => {
+    removeCard = async(event) => {
+      console.log('EVENT target in remove card', event.target.alt)
       await superagent
         .put(`${url}/remove`)
-        .send({present: false})
+        .send({alt: event.target.alt})
     }
 
 
