@@ -54,10 +54,6 @@ class Card extends React.Component {
             chosen: []
         })
     }
-  
-
-
- 
 
   render() {
     return (

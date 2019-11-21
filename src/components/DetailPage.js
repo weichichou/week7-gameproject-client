@@ -20,8 +20,13 @@ class DetailPage extends React.Component {
     .put(`${url}/getroomid`)
     .send({roomId: room.id})
 
+    /* const resetpresentvalue = await superagent
+      .put(`${url}/resetpresent`)
+      .send() */
+
     console.log("response test:", response);
-    console.log('update card with roomId', updatecard)
+    console.log('update card with roomId', updatecard);
+    //console.log('reset present value', resetpresentvalue)
   };
 
   render() {
