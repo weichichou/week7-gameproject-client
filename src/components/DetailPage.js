@@ -6,6 +6,10 @@ import Card from "../components/Card";
 import { Link } from "react-router-dom";
 
 class DetailPage extends React.Component {
+  state = {
+    joined: false
+  };
+
   handleClick = async () => {
     const { rooms, user, match } = this.props;
     const { name } = match.params;
@@ -14,23 +18,19 @@ class DetailPage extends React.Component {
     const response = await superagent.put(`${url}/join/${name}`).set({
       authorization: `Bearer ${jwt}`
     });
+
+    this.setState({ joined: true });
+
     const room = rooms.find(room => room.name === name)
 
     const updatecard = await superagent
     .put(`${url}/getroomid`)
     .send({roomId: room.id})
 
-    /* const resetpresentvalue = await superagent
-      .put(`${url}/resetpresent`)
-      .send() */
-
-    console.log("response test:", response);
-    console.log('update card with roomId', updatecard);
-    //console.log('reset present value', resetpresentvalue)
   };
 
   render() {
-    // from demo
+    
     const { name } = this.props.match.params;
     const { rooms } = this.props;
     console.log("this.props", this.props);
@@ -52,15 +52,19 @@ class DetailPage extends React.Component {
       ) : (
         <p>This room has no users</p>
       );
-    console.log("room test", list);
-    console.log("is this showing?");
+    
     return (
       <div>
         <Link to={"/"}> Go back to homepage</Link>
         <h1>This is {name}</h1>
         <p>Users are {list}</p>
-        <button onClick={this.handleClick}>Join</button>
-        <Card />
+        {!this.state.joined && (
+          <div>
+            <button onClick={this.handleClick}>Join</button>
+          </div>
+        )}
+        {this.state.joined && <Card />}
+        
       </div>
     );
   }
