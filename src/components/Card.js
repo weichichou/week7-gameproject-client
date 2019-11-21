@@ -58,7 +58,9 @@ class Card extends React.Component {
   render() {
     return (
       <div className="game-container">
+        <h3>{this.state.message}</h3>
         <div className="memory-game">
+
           <div
             className="memory-card"
             data-framework="green-card"
@@ -119,6 +121,38 @@ class Card extends React.Component {
             />
             <img
               alt="dog"
+              className="back-face"
+              src="https://www.akinfurniture.com/wp-content/uploads/2017/10/62658_Ink-2.jpg"
+            />
+          </div>
+          <div
+            className="memory-card"
+            data-framework="yellow-card"
+            onClick={this.handleClick}
+          >
+            <img
+              alt="duck"
+              className="front-face"
+              src="https://i.pinimg.com/236x/dc/ef/3a/dcef3abedf0e0761203aaeb85886a6f3--jedi-knight-open-source.jpg"
+            />
+            <img
+              alt="duck"
+              className="back-face"
+              src="https://www.akinfurniture.com/wp-content/uploads/2017/10/62658_Ink-2.jpg"
+            />
+          </div>
+          <div
+            className="memory-card"
+            data-framework="yellow-card"
+            onClick={this.handleClick}
+          >
+            <img
+              alt="duck"
+              className="front-face"
+              src="https://i.pinimg.com/236x/dc/ef/3a/dcef3abedf0e0761203aaeb85886a6f3--jedi-knight-open-source.jpg"
+            />
+            <img
+              alt="duck"
               className="back-face"
               src="https://www.akinfurniture.com/wp-content/uploads/2017/10/62658_Ink-2.jpg"
             />
