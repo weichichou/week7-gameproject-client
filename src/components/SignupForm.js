@@ -1,6 +1,7 @@
 import React from "react";
 import { signup } from "../action/user";
 import { connect } from "react-redux";
+import "./SignupLogin.css";
 
 class SignupForm extends React.Component {
   state = {
@@ -27,7 +28,7 @@ class SignupForm extends React.Component {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
+      <form className="form" onSubmit={this.handleSubmit}>
         <label>
           Email:
           <input
@@ -38,7 +39,7 @@ class SignupForm extends React.Component {
             required
           />
         </label>
-        <label>
+        <label className="label">
           Password:
           <input
             onChange={this.handleChange}

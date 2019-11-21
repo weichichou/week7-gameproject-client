@@ -1,17 +1,26 @@
-import React from 'react'
-import {connect} from 'react-redux'
-import superagent from 'superagent'
-import {url} from '../constant' 
-import './CardCss.css'
+import React from "react";
+import { connect } from "react-redux";
+import superagent from "superagent";
+import { url } from "../constant";
+import "./CardCss.css";
 
 class Card extends React.Component {
-    state = {
-        chosen: [],
-        message: ''
-    }
 
+  state = {
+    flipped: true,
+    chosen: [],
+    message: ''
+  };
+
+  
+  
     
     handleClick = (event) => {
+        var element = event.currentTarget;
+
+        if (this.state.flipped) {
+          element.style.transform = "rotateY(180deg)";
+  
         const chosenPic = event.target.alt.toString()
 
         const newChosen = [...this.state.chosen, chosenPic]
@@ -22,6 +31,7 @@ class Card extends React.Component {
             this.isMatch()
         }else if(newChosen[1] && newChosen[1]!==newChosen[0]){
             this.setState({message:'Sorry, you did not get any point', chosen:[]})   
+        }
         }
     }
 
@@ -40,28 +50,88 @@ class Card extends React.Component {
             chosen: []
         })
     }
+  
 
-    render(){
-        return(
-            <div>
-                <h3>{this.state.message}</h3>
-                
-                <img height='200px' alt='cat' onClick={this.handleClick}
-                src='https://timesofindia.indiatimes.com/thumb/msid-67586673,width-800,height-600,resizemode-4/67586673.jpg'/>
-                
-                <img height='200px' alt='cat' onClick={this.handleClick}
-                src='https://timesofindia.indiatimes.com/thumb/msid-67586673,width-800,height-600,resizemode-4/67586673.jpg'/>
 
-                <img height='200px' alt='dog' onClick={this.handleClick}
-                src='https://images4.persgroep.net/rcs/pBmmY0KtuDM_n4ub9qlMUFplAEs/diocontent/150718141/_fitwidth/694/?appId=21791a8992982cd8da851550a453bd7f&quality=0.9'/>
-                
-            </div> 
-        )
-    }
+ 
+
+  render() {
+    return (
+      <div className="game-container">
+        <div className="memory-game">
+          <div
+            className="memory-card"
+            data-framework="green-card"
+            onClick={this.handleClick}
+          >
+            <img
+              alt="cat"
+              className="front-face"
+              src="https://www.dev-metal.com/wp-content/uploads/2014/01/github-logo-octocat-1-704x605.jpg"
+            />
+            <img
+              alt="cat"
+              className="back-face"
+              src="https://www.akinfurniture.com/wp-content/uploads/2017/10/62658_Ink-2.jpg"
+            />
+          </div>
+          <div
+            className="memory-card"
+            data-framework="green-card"
+            onClick={this.handleClick}
+          >
+            <img
+              alt="cat"
+              className="front-face"
+              src="https://www.dev-metal.com/wp-content/uploads/2014/01/github-logo-octocat-1-704x605.jpg"
+            />
+            <img
+              alt="cat"
+              className="back-face"
+              src="https://www.akinfurniture.com/wp-content/uploads/2017/10/62658_Ink-2.jpg"
+            />
+          </div>
+          <div
+            className="memory-card"
+            data-framework="yellow-card"
+            onClick={this.handleClick}
+          >
+            <img
+              alt="dog"
+              className="front-face"
+              src="https://spicesncurry.com/image/233894-full_oktobercat-github-octocat-transparent-png-896x896-free.png"
+            />
+            <img
+              alt="dog"
+              className="back-face"
+              src="https://www.akinfurniture.com/wp-content/uploads/2017/10/62658_Ink-2.jpg"
+            />
+          </div>
+          <div
+            className="memory-card"
+            data-framework="yellow-card"
+            onClick={this.handleClick}
+          >
+            <img
+              alt="dog"
+              className="front-face"
+              src="https://spicesncurry.com/image/233894-full_oktobercat-github-octocat-transparent-png-896x896-free.png"
+            />
+            <img
+              alt="dog"
+              className="back-face"
+              src="https://www.akinfurniture.com/wp-content/uploads/2017/10/62658_Ink-2.jpg"
+            />
+          </div>
+        </div>
+      </div>
+    );
+  }
+
 }
 
 const mapStateToProps = state => {
-    return { user: state.user, room: state.room };
-  };
+  return { user: state.user, room: state.room };
+};
 
-export default connect(mapStateToProps)(Card)
+export default connect(mapStateToProps)(Card);
