@@ -6,14 +6,6 @@ export default function List(props) {
   console.log("props", props);
   return (
     <div>
-      {/* {isLoggedIn ? <CreateFormContainer /> : "please login to submit an image"}
-      <h1>All images</h1>
-      {props.images.map(image => (
-        <div key={image.id}>
-          <p>{image.title}</p>
-          <img src={image.url} alt=""></img>
-        </div>
-      ))} */}
       <h1>Room List</h1>
       <div>
         <form onSubmit={props.handleSubmit}>
