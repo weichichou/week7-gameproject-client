@@ -7,15 +7,26 @@ import { Link } from "react-router-dom";
 
 class DetailPage extends React.Component {
   handleClick = async () => {
-    const { user, match } = this.props;
+    const { rooms, user, match } = this.props;
     const { name } = match.params;
     const { jwt } = user;
 
     const response = await superagent.put(`${url}/join/${name}`).set({
       authorization: `Bearer ${jwt}`
     });
+    const room = rooms.find(room => room.name === name)
+
+    const updatecard = await superagent
+    .put(`${url}/getroomid`)
+    .send({roomId: room.id})
+
+    /* const resetpresentvalue = await superagent
+      .put(`${url}/resetpresent`)
+      .send() */
 
     console.log("response test:", response);
+    console.log('update card with roomId', updatecard);
+    //console.log('reset present value', resetpresentvalue)
   };
 
   render() {
