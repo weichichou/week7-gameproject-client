@@ -5,62 +5,58 @@ import { url } from "../constant";
 import "./CardCss.css";
 
 class Card extends React.Component {
-
   state = {
     flipped: true,
-    chosen: [],
-    message: ''
+    chosenAlt: [],
+    chosenStyle: [],
+    message: ""
   };
 
-  
-  
-    
-    handleClick = (event) => {
-        var element = event.currentTarget;
+  handleClick = event => {
+    if (this.state.flipped) {
+      event.currentTarget.style.transform = "rotateY(180deg)";
+      // console.log("currentTarget:", event.currentTarget);
+      // console.log("target:", event.target);
 
-        if (this.state.flipped) {
-          element.style.transform = "rotateY(180deg)";
-  
-        const chosenPic = event.target.alt.toString()
+      const newStyle = [...this.state.chosenStyle, event.currentTarget];
+      this.setState({ chosenStyle: newStyle });
 
-        const newChosen = [...this.state.chosen, chosenPic]
-        
-        this.setState({ chosen: newChosen })
+      const targetAlt = event.target.alt.toString();
+      const newAlt = [...this.state.chosenAlt, targetAlt];
+      this.setState({ chosenAlt: newAlt });
 
-        if(newChosen[1] && newChosen[1]===newChosen[0]){
-            this.isMatch()
-        }else if(newChosen[1] && newChosen[1]!==newChosen[0]){
-            this.setState({message:'Sorry, you did not get any point', chosen:[]})   
+      if (newAlt[1] && newAlt[1] === newAlt[0]) {
+        this.isMatch();
+      } else if (newAlt[1] && newAlt[1] !== newAlt[0]) {
+        function turnBack() {
+          newStyle.forEach(card => (card.style.transform = "rotateY(0deg)"));
         }
-        }
-    }
-
-
-
-    isMatch = async() => {
-        this.setState({message: 'Congrats! you get one point'})
-            const {user} = this.props
-            const {jwt} = user
-            await superagent
-            .put(`${url}/card`)
-            .set({
-                authorization: `Bearer ${jwt}`
-            })
+        setTimeout(turnBack, 1000);
         this.setState({
-            chosen: []
-        })
+          message: "Sorry, you did not get any point",
+          chosenAlt: []
+        });
+      }
     }
-  
+  };
 
-
- 
+  isMatch = async () => {
+    this.setState({ message: "Congrats! you get one point" });
+    const { user } = this.props;
+    const { jwt } = user;
+    await superagent.put(`${url}/card`).set({
+      authorization: `Bearer ${jwt}`
+    });
+    this.setState({
+      chosenAlt: []
+    });
+  };
 
   render() {
     return (
       <div className="game-container">
         <h3>{this.state.message}</h3>
         <div className="memory-game">
-
           <div
             className="memory-card"
             data-framework="green-card"
@@ -161,7 +157,6 @@ class Card extends React.Component {
       </div>
     );
   }
-
 }
 
 const mapStateToProps = state => {

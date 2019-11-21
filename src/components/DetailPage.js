@@ -6,6 +6,10 @@ import Card from "../components/Card";
 import { Link } from "react-router-dom";
 
 class DetailPage extends React.Component {
+  state = {
+    joined: false
+  };
+
   handleClick = async () => {
     const { user, match } = this.props;
     const { name } = match.params;
@@ -14,7 +18,7 @@ class DetailPage extends React.Component {
     const response = await superagent.put(`${url}/join/${name}`).set({
       authorization: `Bearer ${jwt}`
     });
-
+    this.setState({ joined: true });
     console.log("response test:", response);
   };
 
@@ -41,15 +45,20 @@ class DetailPage extends React.Component {
       ) : (
         <p>This room has no users</p>
       );
-    console.log("room test", list);
-    console.log("is this showing?");
+    //const joined = true;
+    //const joined = users.some(user => user.email ===)
     return (
       <div>
         <Link to={"/"}> Go back to homepage</Link>
         <h1>This is {name}</h1>
         <p>Users are {list}</p>
-        <button onClick={this.handleClick}>Join</button>
-        <Card />
+        {!this.state.joined && (
+          <div>
+            <button onClick={this.handleClick}>Join</button>
+          </div>
+        )}
+        {this.state.joined && <Card />}
+        {/* <button onClick={this.handleClick}>Join</button> */}
       </div>
     );
   }
