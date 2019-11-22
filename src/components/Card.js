@@ -13,17 +13,17 @@ class Card extends React.Component {
     cards: []
   };
 
-  componentDidMount(){
-    const roomId = this.props.roomId
+  componentDidMount() {
+    const roomId = this.props.roomId;
     superagent
       .get(`${url}/cards`)
-      .query({roomId: roomId})
-      .then((res)=>{
-        console.log(res)
+      .query({ roomId: roomId })
+      .then(res => {
+        console.log(res);
         this.setState({
           cards: res.body
-        })
-      })
+        });
+      });
   }
 
   handleClick = event => {
@@ -52,17 +52,13 @@ class Card extends React.Component {
     }
   };
 
-               
+  removeCard = async event => {
+    console.log("EVENT target in remove card", event.target.alt);
+    await superagent
+      .put(`${url}/remove`)
+      .send({ alt: event.target.alt, roomId: this.props.roomId });
+  };
 
-    removeCard = async(event) => {
-      console.log('EVENT target in remove card', event.target.alt)
-      await superagent
-        .put(`${url}/remove`)
-        .send({alt: event.target.alt, roomId: this.props.roomId})
-    }
-
-
-  
   isMatch = async () => {
     this.setState({ message: "Congrats! you get one point" });
     const { user } = this.props;
@@ -75,52 +71,59 @@ class Card extends React.Component {
     });
   };
 
-  altToImgurl = (alt) => {
-    const toImgurl = 
-    {cat: 'https://www.dev-metal.com/wp-content/uploads/2014/01/github-logo-octocat-1-704x605.jpg',
-     dog: 'https://spicesncurry.com/image/233894-full_oktobercat-github-octocat-transparent-png-896x896-free.png',
-     duck: 'https://i.pinimg.com/236x/dc/ef/3a/dcef3abedf0e0761203aaeb85886a6f3--jedi-knight-open-source.jpg' }
-  
-    return toImgurl[alt]
-    }
+  altToImgurl = alt => {
+    const toImgurl = {
+      cat:
+        "https://www.dev-metal.com/wp-content/uploads/2014/01/github-logo-octocat-1-704x605.jpg",
+      dog:
+        "https://spicesncurry.com/image/233894-full_oktobercat-github-octocat-transparent-png-896x896-free.png",
+      duck:
+        "https://i.pinimg.com/236x/dc/ef/3a/dcef3abedf0e0761203aaeb85886a6f3--jedi-knight-open-source.jpg"
+    };
 
- render() {
-    
-    const currentRoom = this.props.room.find(r => r.id === this.props.roomId)
-    
-    if(!currentRoom || !currentRoom.cards){
-      return <p>Loading...</p>
+    return toImgurl[alt];
+  };
+
+  render() {
+    const currentRoom = this.props.room.find(r => r.id === this.props.roomId);
+
+    if (!currentRoom || !currentRoom.cards) {
+      return <p>Loading...</p>;
     }
-    const sortCards = currentRoom.cards.sort(function(a,b){
-      return a.id - b.id
-    })
-    console.log('currentRoom??', currentRoom)
+    const sortCards = currentRoom.cards.sort(function(a, b) {
+      return a.id - b.id;
+    });
+    const gameIsOver = currentRoom.cards.every(card => card.present === false);
+
     return (
       <div className="game-container">
-        <h3>{this.state.message}</h3>
+        <h2 className="message">
+          {gameIsOver ? "Game is over, thanks for playing" : this.state.message}
+        </h2>
+        {/* <h2 className="message">{this.state.message}</h2> */}
         <div className="memory-game">
-          {console.log('currentRoom.cards', currentRoom.cards)}
-          {sortCards.map((card)=>{
-            
-            return <div id={card.id}
-            className={`memory-card ${!card.present ? 'hidden' : ''}`}
-            
-           
-            //className='memory-card'
-            data-framework="green-card"
-            onClick={this.handleClick}
-            >
-              <img
-              alt={card.alt}
-              className="front-face"
-              src={this.altToImgurl(card.alt)}
-            />
-            <img
-              alt={card.alt}
-              className="back-face"
-              src="https://www.akinfurniture.com/wp-content/uploads/2017/10/62658_Ink-2.jpg"
-            />
-            </div>
+          {console.log("currentRoom.cards", currentRoom.cards)}
+          {sortCards.map(card => {
+            return (
+              <div
+                id={card.id}
+                className={`memory-card ${!card.present ? "hidden" : ""}`}
+                //className='memory-card'
+                data-framework="green-card"
+                onClick={this.handleClick}
+              >
+                <img
+                  alt={card.alt}
+                  className="front-face"
+                  src={this.altToImgurl(card.alt)}
+                />
+                <img
+                  alt={card.alt}
+                  className="back-face"
+                  src="https://www.akinfurniture.com/wp-content/uploads/2017/10/62658_Ink-2.jpg"
+                />
+              </div>
+            );
           })}
         </div>
       </div>
