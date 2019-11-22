@@ -43,7 +43,7 @@ class DetailPage extends React.Component {
       users && users.length ? (
         users.map(user => (
           <p key={user.id}>
-            {user.email}. Current score:{user.point}
+            {user.username}. Current score:{user.point}
           </p>
         ))
       ) : (
