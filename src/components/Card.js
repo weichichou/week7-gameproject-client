@@ -103,23 +103,30 @@ class Card extends React.Component {
     let sortUsers = currentUsers.sort(function (a, b){
       return b.point - a.point
     })
-    let winner = sortUsers[0]
-    console.log('Winner?', winner)
+    console.log('What is sortUsers?', sortUsers) 
+    let winnerMsg =''
+
+    if (sortUsers[1] && sortUsers[0].point !== sortUsers[1].point){
+      let winner = sortUsers[0]
+      console.log('Winner?', winner)
+      winnerMsg = `Winner is ${winner.username}`
+    }else{
+      winnerMsg = 'It is a tie game'
+    }
 
     return (
       <div className="game-container">
         <h2 className="message">
-          {gameIsOver ? `Game is over, thanks for playing. Winner is ${winner.username}!` : this.state.message}
+          {gameIsOver ? `Game is over, thanks for playing. ${winnerMsg}!` : this.state.message}
         </h2>
-        {/* <h2 className="message">{this.state.message}</h2> */}
+        
         <div className="memory-game">
-          {console.log("currentRoom.cards", currentRoom.cards)}
           {sortCards.map(card => {
             return (
               <div
                 id={card.id}
                 className={`memory-card ${!card.present ? "hidden" : ""}`}
-                //className='memory-card'
+                
                 data-framework="green-card"
                 onClick={this.handleClick}
               >
