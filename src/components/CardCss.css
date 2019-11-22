@@ -35,7 +35,7 @@
   transform: rotateY(0deg);
   transition: transform 0.5s;
   transform-style: preserve-3d;
-  transition: visibility 0.5s;
+  transition: visibility 0.5s; 
 }
 
 .front-face,

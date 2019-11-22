@@ -101,7 +101,10 @@ class Card extends React.Component {
           {sortCards.map((card)=>{
             
             return <div id={card.id}
-            className={`memory-card ${card.present ?'' : 'hidden'}`}
+            className={`memory-card ${!card.present ? 'hidden' : ''}`}
+            
+           
+            //className='memory-card'
             data-framework="green-card"
             onClick={this.handleClick}
             >
