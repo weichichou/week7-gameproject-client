@@ -40,12 +40,14 @@ class DetailPage extends React.Component {
     const list =
       users && users.length ? (
         users.map(user => (
+
           <div className="user-container">
             <p className="username" key={user.id}>
-              {user.email}{" "}
+              {user.username}{" "}
             </p>
             <p className="userpoints"> Current score:{user.point}</p>
           </div>
+
         ))
       ) : (
         <p>This room has no users</p>
