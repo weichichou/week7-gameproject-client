@@ -98,10 +98,18 @@ class Card extends React.Component {
     });
     const gameIsOver = currentRoom.cards.every(card => card.present === false);
 
+    console.log('Current players', currentRoom.users)
+    let currentUsers = currentRoom.users
+    let sortUsers = currentUsers.sort(function (a, b){
+      return b.point - a.point
+    })
+    let winner = sortUsers[0]
+    console.log('Winner?', winner)
+
     return (
       <div className="game-container">
         <h2 className="message">
-          {gameIsOver ? "Game is over, thanks for playing" : this.state.message}
+          {gameIsOver ? `Game is over, thanks for playing. Winner is ${winner.username}!` : this.state.message}
         </h2>
         {/* <h2 className="message">{this.state.message}</h2> */}
         <div className="memory-game">
