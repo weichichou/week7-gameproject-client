@@ -1,9 +1,12 @@
-/* .form {
-  margin: 1%;
+.form {
+  margin: 1% 4%;
   display: flex;
 }
 
-.inputfield {
+.container {
+  margin: 4%;
+}
+/* .inputfield {
   margin: 2% 0%;
 }
 

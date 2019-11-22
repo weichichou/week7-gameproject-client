@@ -1,4 +1,3 @@
-
 * {
   padding: 0;
   margin: 0;
@@ -31,6 +30,7 @@
   transform: rotateY(0deg);
   transition: transform 0.5s;
   transform-style: preserve-3d;
+  border-radius: 4%;
 }
 
 .front-face,
@@ -39,9 +39,9 @@
   height: 100%;
   padding: 2%;
   position: absolute;
-  border-radius: 5px;
   /* border: 2px solid deeppink; */
   backface-visibility: hidden;
+  border-radius: 10%;
 }
 
 .front-face {
@@ -53,4 +53,3 @@ img {
   width: 100px;
   cursor: pointer;
 }
-
