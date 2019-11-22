@@ -1,0 +1,26 @@
+@import url("https://fonts.googleapis.com/css?family=Kalam|Philosopher&display=swap");
+
+.title {
+  margin: 4%;
+  font-family: "Philosopher", sans-serif;
+  font-size: 100px;
+  color: rgb(25, 134, 153);
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.home-button {
+  margin: 4%;
+}
+
+.image {
+  display: block;
+  max-width: 30%;
+  max-height: 150px;
+  width: auto;
+  height: auto;
+  margin: 3%;
+}

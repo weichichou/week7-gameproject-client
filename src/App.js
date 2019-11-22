@@ -1,10 +1,10 @@
 import React from "react";
 import store from "./store";
 import { Provider } from "react-redux";
-import "./App.css";
+
 import SignupForm from "./components/SignupForm";
 import LoginForm from "./components/LoginForm";
-
+import Header from "./components/Header";
 import RoomListContainer from "./components/RoomListContainer";
 import { Route } from "react-router-dom";
 import DetailPage from "./components/DetailPage";
@@ -32,9 +32,13 @@ class App extends React.Component {
     return (
       <Provider store={store}>
         <div>
-          <h1 className="title">MEMORY</h1>
-          <SignupForm />
-          <LoginForm />
+          <Header />
+          {/* <h1 className="title">MEMORY</h1> */}
+          <Route path="/" exact component={SignupForm} />
+          <Route path="/" exact component={LoginForm} />
+
+          {/* <SignupForm /> */}
+          {/* <LoginForm /> */}
           <Route path="/" exact component={RoomListContainer} />
           <Route path="/rooms/:name" component={DetailPage} />
         </div>

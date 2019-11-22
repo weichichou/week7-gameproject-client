@@ -43,7 +43,7 @@ class Card extends React.Component {
         function turnBack() {
           newStyle.forEach(card => (card.style.transform = "rotateY(0deg)"));
         }
-        setTimeout(turnBack, 1000);
+        setTimeout(turnBack, 500);
         this.setState({
           message: "Sorry, you did not get any point",
           chosenAlt: []
@@ -71,18 +71,20 @@ class Card extends React.Component {
     });
   };
 
-
-  altToImgurl = (alt) => {
-    const toImgurl = 
-    {cat: 'https://www.dev-metal.com/wp-content/uploads/2014/01/github-logo-octocat-1-704x605.jpg',
-     dog: 'https://spicesncurry.com/image/233894-full_oktobercat-github-octocat-transparent-png-896x896-free.png',
-     duck: 'https://i.pinimg.com/236x/dc/ef/3a/dcef3abedf0e0761203aaeb85886a6f3--jedi-knight-open-source.jpg',
-     pig: 'https://octodex.github.com/images/scubatocat.png',
-     bird: 'https://octodex.github.com/images/saint_nictocat.jpg',
-     fish: 'https://octodex.github.com/images/dinotocat.png',
-     sun: 'https://octodex.github.com/images/spidertocat.png',
-     moon: 'https://octodex.github.com/images/waldocat.png'
-   }
+  altToImgurl = alt => {
+    const toImgurl = {
+      cat:
+        "https://www.dev-metal.com/wp-content/uploads/2014/01/github-logo-octocat-1-704x605.jpg",
+      dog:
+        "https://spicesncurry.com/image/233894-full_oktobercat-github-octocat-transparent-png-896x896-free.png",
+      duck:
+        "https://i.pinimg.com/236x/dc/ef/3a/dcef3abedf0e0761203aaeb85886a6f3--jedi-knight-open-source.jpg",
+      pig: "https://octodex.github.com/images/scubatocat.png",
+      bird: "https://octodex.github.com/images/saint_nictocat.jpg",
+      fish: "https://octodex.github.com/images/dinotocat.png",
+      sun: "https://octodex.github.com/images/spidertocat.png",
+      moon: "https://octodex.github.com/images/waldocat.png"
+    };
 
     return toImgurl[alt];
   };
