@@ -24,6 +24,7 @@
   /* border: 2px solid lime; */
   perspective: 1000px;
   background-color: #e6e6e6;
+  border-radius: 4%;
 }
 
 .memory-card {
@@ -39,6 +40,7 @@
   transition: visibility 0.5s;
 
   border-radius: 4%;
+  cursor: pointer;
 }
 
 .front-face,
@@ -57,10 +59,10 @@
   background: pink;
 }
 
-img {
+/* img {
   width: 100px;
   cursor: pointer;
-}
+} */
 
 @import url("https://fonts.googleapis.com/css?family=Kalam|Philosopher&display=swap");
 
@@ -69,5 +71,5 @@ img {
   text-align: center;
   font-family: "Philosopher", sans-serif;
   font-size: 40px;
-  margin: 3%;
+  margin: 1%;
 }

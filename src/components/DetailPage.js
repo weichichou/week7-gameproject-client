@@ -40,14 +40,12 @@ class DetailPage extends React.Component {
     const list =
       users && users.length ? (
         users.map(user => (
-
           <div className="user-container">
             <p className="username" key={user.id}>
-              {user.username}{" "}
+              Player:{user.username}{" "}
             </p>
             <p className="userpoints"> Current score:{user.point}</p>
           </div>
-
         ))
       ) : (
         <p>This room has no users</p>
@@ -55,7 +53,7 @@ class DetailPage extends React.Component {
 
     return (
       <div className="detailpage-container">
-        <Link to={"/"}> Go back to homepage</Link>
+        {/* <Link to={"/"}> Go back to homepage</Link> */}
 
         <div>
           <h1>Room: {name}</h1>{" "}
@@ -68,7 +66,7 @@ class DetailPage extends React.Component {
         {/* <p>Users are: {list}</p> */}
         {this.state.joined && (
           <div>
-            <p>{list}</p>
+            <div className="test">{list}</div>
             <Card roomId={room.id} />
           </div>
         )}
