@@ -1,3 +1,23 @@
 .detailpage-container {
   margin: 6% 4%;
 }
+
+.user-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+@import url("https://fonts.googleapis.com/css?family=Kalam|Philosopher&display=swap");
+
+.username {
+  font-family: "Philosopher", sans-serif;
+  font-size: 28px;
+  margin: 3%;
+}
+
+.userpoints {
+  font-family: "Philosopher", sans-serif;
+  font-size: 28px;
+  margin: 3%;
+}

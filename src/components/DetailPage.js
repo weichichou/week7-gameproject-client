@@ -23,8 +23,6 @@ class DetailPage extends React.Component {
     this.setState({ joined: true });
 
     const room = rooms.find(room => room.name === name);
-
-
   };
 
   render() {
@@ -42,9 +40,14 @@ class DetailPage extends React.Component {
     const list =
       users && users.length ? (
         users.map(user => (
-          <p key={user.id}>
-            {user.username}. Current score:{user.point}
-          </p>
+
+          <div className="user-container">
+            <p className="username" key={user.id}>
+              {user.username}{" "}
+            </p>
+            <p className="userpoints"> Current score:{user.point}</p>
+          </div>
+
         ))
       ) : (
         <p>This room has no users</p>
@@ -62,9 +65,13 @@ class DetailPage extends React.Component {
             </div>
           )}
         </div>
-        <p>Users are: {list}</p>
-        {this.state.joined && <Card roomId={room.id} />}
-
+        {/* <p>Users are: {list}</p> */}
+        {this.state.joined && (
+          <div>
+            <p>{list}</p>
+            <Card roomId={room.id} />
+          </div>
+        )}
       </div>
     );
   }
