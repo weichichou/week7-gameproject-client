@@ -19,6 +19,10 @@ class LoginForm extends React.Component {
     event.preventDefault();
     console.log("login action?");
     this.props.login(this.state);
+    this.setState({
+      username:'',
+      password:''
+    })
   };
 
   render() {
