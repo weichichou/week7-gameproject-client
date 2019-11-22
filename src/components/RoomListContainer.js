@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { addroom } from "../action/room";
 import { Link } from "react-router-dom";
 import RoomList from "./RoomList";
+import "./RoomList.css";
 
 class RoomListContainer extends Component {
   state = {
@@ -37,7 +38,7 @@ class RoomListContainer extends Component {
     }
 
     return (
-      <div>
+      <div className="room-list">
         {isLoggedIn ? (
           <RoomList
             handleSubmit={this.handleSubmit}
