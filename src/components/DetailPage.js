@@ -63,7 +63,7 @@ class DetailPage extends React.Component {
           )}
         </div>
         <p>Users are: {list}</p>
-        {this.state.joined && <Card roomid={room.id} />}
+        {this.state.joined && <Card roomId={room.id} />}
 
       </div>
     );
