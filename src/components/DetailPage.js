@@ -24,9 +24,7 @@ class DetailPage extends React.Component {
 
     const room = rooms.find(room => room.name === name);
 
-    const updatecard = await superagent
-      .put(`${url}/getroomid`)
-      .send({ roomId: room.id });
+
   };
 
   render() {
@@ -55,6 +53,7 @@ class DetailPage extends React.Component {
     return (
       <div className="detailpage-container">
         <Link to={"/"}> Go back to homepage</Link>
+
         <div>
           <h1>Room: {name}</h1>{" "}
           {!this.state.joined && (
@@ -65,6 +64,7 @@ class DetailPage extends React.Component {
         </div>
         <p>Users are: {list}</p>
         {this.state.joined && <Card roomid={room.id} />}
+
       </div>
     );
   }

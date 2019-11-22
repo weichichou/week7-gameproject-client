@@ -9,8 +9,22 @@ class Card extends React.Component {
     flipped: true,
     chosenAlt: [],
     chosenStyle: [],
-    message: ""
+    message: "",
+    cards: []
   };
+
+  componentDidMount(){
+    const roomId = this.props.roomId
+    superagent
+      .get(`${url}/cards`)
+      .query({roomId: roomId})
+      .then((res)=>{
+        console.log(res)
+        this.setState({
+          cards: res.body
+        })
+      })
+  }
 
   handleClick = event => {
     if (this.state.flipped) {
@@ -38,11 +52,17 @@ class Card extends React.Component {
     }
   };
 
-  removeCard = async event => {
-    console.log("EVENT target in remove card", event.target.alt);
-    await superagent.put(`${url}/remove`).send({ alt: event.target.alt });
-  };
+               
 
+    removeCard = async(event) => {
+      console.log('EVENT target in remove card', event.target.alt)
+      await superagent
+        .put(`${url}/remove`)
+        .send({alt: event.target.alt, roomId: this.props.roomId})
+    }
+
+
+  
   isMatch = async () => {
     this.setState({ message: "Congrats! you get one point" });
     const { user } = this.props;
@@ -55,123 +75,53 @@ class Card extends React.Component {
     });
   };
 
-  render() {
-    const currentRoomid = this.props.roomid;
-    console.log("parent pass ?", this.props.roomid);
-    //const { name } = this.props.match.params;
-    //const { room } = this.props;
-    // console.log("name", name);
-    console.log("all rooms", this.props.room);
-    const currentRoom = this.props.room.find(room => room.id === currentRoomid);
-    console.log("currentroom", currentRoom.cards);
-    const cardList = currentRoom.cards;
+  altToImgurl = (alt) => {
+    const toImgurl = 
+    {cat: 'https://www.dev-metal.com/wp-content/uploads/2014/01/github-logo-octocat-1-704x605.jpg',
+     dog: 'https://spicesncurry.com/image/233894-full_oktobercat-github-octocat-transparent-png-896x896-free.png',
+     duck: 'https://i.pinimg.com/236x/dc/ef/3a/dcef3abedf0e0761203aaeb85886a6f3--jedi-knight-open-source.jpg' }
+  
+    return toImgurl[alt]
+    }
+
+ render() {
+    
+    const currentRoom = this.props.room.find(r => r.id === this.props.roomId)
+    
+    if(!currentRoom || !currentRoom.cards){
+      return <p>Loading...</p>
+    }
+    const sortCards = currentRoom.cards.sort(function(a,b){
+      return a.id - b.id
+    })
+    console.log('currentRoom??', currentRoom)
     return (
       <div className="game-container">
         <h3>{this.state.message}</h3>
         <div className="memory-game">
-          {/* {!this.state.} */}
-          <div
-            id="1"
-            className="memory-card"
+          {console.log('currentRoom.cards', currentRoom.cards)}
+          {sortCards.map((card)=>{
+            
+            return <div id={card.id}
+            className={`memory-card ${!card.present ? 'hidden' : ''}`}
+            
+           
+            //className='memory-card'
             data-framework="green-card"
             onClick={this.handleClick}
-          >
-            <img
-              alt="cat"
+            >
+              <img
+              alt={card.alt}
               className="front-face"
-              src="https://www.dev-metal.com/wp-content/uploads/2014/01/github-logo-octocat-1-704x605.jpg"
+              src={this.altToImgurl(card.alt)}
             />
             <img
-              alt="cat"
+              alt={card.alt}
               className="back-face"
               src="https://www.akinfurniture.com/wp-content/uploads/2017/10/62658_Ink-2.jpg"
             />
-          </div>
-          <div
-            id="2"
-            className="memory-card"
-            data-framework="green-card"
-            onClick={this.handleClick}
-          >
-            <img
-              alt="cat"
-              className="front-face"
-              src="https://www.dev-metal.com/wp-content/uploads/2014/01/github-logo-octocat-1-704x605.jpg"
-            />
-            <img
-              alt="cat"
-              className="back-face"
-              src="https://www.akinfurniture.com/wp-content/uploads/2017/10/62658_Ink-2.jpg"
-            />
-          </div>
-          <div
-            id="3"
-            className="memory-card"
-            data-framework="yellow-card"
-            onClick={this.handleClick}
-          >
-            <img
-              alt="dog"
-              className="front-face"
-              src="https://spicesncurry.com/image/233894-full_oktobercat-github-octocat-transparent-png-896x896-free.png"
-            />
-            <img
-              alt="dog"
-              className="back-face"
-              src="https://www.akinfurniture.com/wp-content/uploads/2017/10/62658_Ink-2.jpg"
-            />
-          </div>
-          <div
-            id="4"
-            className="memory-card"
-            data-framework="yellow-card"
-            onClick={this.handleClick}
-          >
-            <img
-              alt="dog"
-              className="front-face"
-              src="https://spicesncurry.com/image/233894-full_oktobercat-github-octocat-transparent-png-896x896-free.png"
-            />
-            <img
-              alt="dog"
-              className="back-face"
-              src="https://www.akinfurniture.com/wp-content/uploads/2017/10/62658_Ink-2.jpg"
-            />
-          </div>
-          <div
-            id="5"
-            className="memory-card"
-            data-framework="yellow-card"
-            onClick={this.handleClick}
-          >
-            <img
-              alt="duck"
-              className="front-face"
-              src="https://i.pinimg.com/236x/dc/ef/3a/dcef3abedf0e0761203aaeb85886a6f3--jedi-knight-open-source.jpg"
-            />
-            <img
-              alt="duck"
-              className="back-face"
-              src="https://www.akinfurniture.com/wp-content/uploads/2017/10/62658_Ink-2.jpg"
-            />
-          </div>
-          <div
-            id="6"
-            className="memory-card"
-            data-framework="yellow-card"
-            onClick={this.handleClick}
-          >
-            <img
-              alt="duck"
-              className="front-face"
-              src="https://i.pinimg.com/236x/dc/ef/3a/dcef3abedf0e0761203aaeb85886a6f3--jedi-knight-open-source.jpg"
-            />
-            <img
-              alt="duck"
-              className="back-face"
-              src="https://www.akinfurniture.com/wp-content/uploads/2017/10/62658_Ink-2.jpg"
-            />
-          </div>
+            </div>
+          })}
         </div>
       </div>
     );

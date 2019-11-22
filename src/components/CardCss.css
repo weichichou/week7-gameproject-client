@@ -4,6 +4,10 @@
   box-sizing: border-box;
 }
 
+.hidden {
+  visibility: hidden;
+}
+
 .game-container {
   height: 70vh;
   width: 100%;
@@ -30,7 +34,11 @@
   transform: rotateY(0deg);
   transition: transform 0.5s;
   transform-style: preserve-3d;
+
+  transition: visibility 0.5s; 
+
   border-radius: 4%;
+
 }
 
 .front-face,
