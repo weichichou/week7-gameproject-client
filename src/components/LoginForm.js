@@ -5,7 +5,7 @@ import "./SignupLogin.css";
 
 class LoginForm extends React.Component {
   state = {
-    email: "",
+    username: "",
     password: ""
   };
 
@@ -26,12 +26,12 @@ class LoginForm extends React.Component {
       <div>
         <form className="form" onSubmit={this.handleSubmit}>
           <label>
-            Email:
+            Username:
             <input
               onChange={this.handleChange}
               type="text"
-              name="email"
-              value={this.state.email}
+              name="username"
+              value={this.state.username}
               required
             />
           </label>
