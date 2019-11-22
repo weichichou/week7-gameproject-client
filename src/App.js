@@ -32,7 +32,7 @@ class App extends React.Component {
     return (
       <Provider store={store}>
         <div>
-          <h1>Game project</h1>
+          <h1 className="title">MEMORY</h1>
           <SignupForm />
           <LoginForm />
           <Route path="/" exact component={RoomListContainer} />

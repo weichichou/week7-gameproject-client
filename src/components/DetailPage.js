@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { url } from "../constant";
 import Card from "../components/Card";
 import { Link } from "react-router-dom";
+import "./DetailPage.css";
 
 class DetailPage extends React.Component {
   state = {
@@ -21,17 +22,12 @@ class DetailPage extends React.Component {
 
     this.setState({ joined: true });
 
-    const room = rooms.find(room => room.name === name)
-
-/*     const updatecard = await superagent
-    .put(`${url}/getroomid`)
-    .send({roomId: room.id}) */
+    const room = rooms.find(room => room.name === name);
 
 
   };
 
   render() {
-    
     const { name } = this.props.match.params;
     const { rooms } = this.props;
     console.log("this.props", this.props);
@@ -53,19 +49,22 @@ class DetailPage extends React.Component {
       ) : (
         <p>This room has no users</p>
       );
-    
+
     return (
-      <div>
+      <div className="detailpage-container">
         <Link to={"/"}> Go back to homepage</Link>
-        <h1>This is {name}</h1>
-        <p>Users are {list}</p>
-        {!this.state.joined && (
-          <div>
-            <button onClick={this.handleClick}>Join</button>
-          </div>
-        )}
-        {this.state.joined && <Card roomId={room.id} />}
-        
+
+        <div>
+          <h1>Room: {name}</h1>{" "}
+          {!this.state.joined && (
+            <div>
+              <button onClick={this.handleClick}>Join</button>
+            </div>
+          )}
+        </div>
+        <p>Users are: {list}</p>
+        {this.state.joined && <Card roomid={room.id} />}
+
       </div>
     );
   }

@@ -38,7 +38,7 @@ class Card extends React.Component {
 
       if (newAlt[1] && newAlt[1] === newAlt[0]) {
         this.isMatch();
-         this.removeCard(event)
+        this.removeCard(event);
       } else if (newAlt[1] && newAlt[1] !== newAlt[0]) {
         function turnBack() {
           newStyle.forEach(card => (card.style.transform = "rotateY(0deg)"));
@@ -47,10 +47,11 @@ class Card extends React.Component {
         this.setState({
           message: "Sorry, you did not get any point",
           chosenAlt: []
-        })
+        });
       }
     }
   };
+
                
 
     removeCard = async(event) => {
@@ -61,6 +62,7 @@ class Card extends React.Component {
     }
 
 
+  
   isMatch = async () => {
     this.setState({ message: "Congrats! you get one point" });
     const { user } = this.props;
@@ -82,7 +84,7 @@ class Card extends React.Component {
     return toImgurl[alt]
     }
 
-  render() {
+ render() {
     
     const currentRoom = this.props.room.find(r => r.id === this.props.roomId)
     
